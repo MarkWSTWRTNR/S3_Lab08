@@ -2,6 +2,7 @@ package se331.rest.dao;
 
 import org.springframework.stereotype.Repository;
 import se331.rest.entity.Event;
+import se331.rest.entity.Organizer;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -9,17 +10,17 @@ import java.util.List;
 
 @Repository
 public class EventDaoImpl implements EventDao {
-    List<Event> eventList;
+    List<Organizer> eventList;
 
     @PostConstruct
     public void init() {
         eventList = new ArrayList<>();
-        eventList.add(Event.builder().id(123L).category("animal welfare").title("Cap Adoption Day").description("Find your new feline friend at this event.").location("Meow Town").date("January 28, 2022").time("12:00").petAllowed(true).organizer("Kat Laydee").build());
-        eventList.add(Event.builder().id(456L).category("food").title("Community Gardening").description("Join us as we tend to the community edible plants.").location("Flora City").date("March 14, 2022").time("10:00").petAllowed(true).organizer("Fern Pollin").build());
-        eventList.add(Event.builder().id(789L).category("sustainability").title("Beach Cleanup").description("Help pick up trash along the shore.").location("Playa Del Carmen").date("July 22, 2022").time("11:00").petAllowed(false).organizer("Carey Wales").build());
-        eventList.add(Event.builder().id(1001L).category("animal welfare").title("Dog Adoption Day").description("Find your new canine friend at this event.").location("Woof Town").date("August 28, 2022").time("12:00").petAllowed(true).organizer("Dawg Dahd").build());
-        eventList.add(Event.builder().id(1002L).category("food").title("Canned Food Drive").description("Bring your canned food to donate to those in need.").location("Tin City").date("September 14, 2022").time("3:00").petAllowed(false).organizer("Kahn Opiner").build());
-        eventList.add(Event.builder().id(789L).category("sustainability").title("Highway Cleanup").description("Help pick up trash along the highway.").location("Highway 50").date("July 22, 2022").time("11:00").petAllowed(false).organizer("Brody Kill").build());
+        eventList.add(Organizer.builder().id(123L).location("Meow Town").organizer("Kat Laydee").build());
+        eventList.add(Organizer.builder().id(456L).location("Flora City").organizer("Fern Pollin").build());
+        eventList.add(Organizer.builder().id(789L).location("Playa Del Carmen").organizer("Carey Wales").build());
+        eventList.add(Organizer.builder().id(1001L).location("Woof Town").organizer("Dawg Dahd").build());
+        eventList.add(Organizer.builder().id(1002L).location("Tin City").organizer("Kahn Opiner").build());
+        eventList.add(Organizer.builder().id(789L).location("Highway 50").organizer("Brody Kill").build());
     }
 
     @Override
@@ -28,7 +29,7 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public List<Event> getEvents(Integer pageSize, Integer page) {
+    public List<Organizer> getEvents(Integer pageSize, Integer page) {
         pageSize = pageSize == null ? eventList.size() : pageSize;
         page = page == null ? 1 : page;
         int firstIndex = (page - 1) * pageSize;
@@ -36,7 +37,7 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public Event getEvent(Long id) {
+    public Organizer getEvent(Long id) {
         return eventList.stream().filter(event -> event.getId().equals(id)).findFirst().orElse(null);
     }
 }
